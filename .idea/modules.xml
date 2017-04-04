@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ligpro.iml" filepath="$PROJECT_DIR$/ligpro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ligpro-core/ligpro-core.iml" filepath="$PROJECT_DIR$/ligpro-core/ligpro-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ligpro-web/ligpro-web.iml" filepath="$PROJECT_DIR$/ligpro-web/ligpro-web.iml" />
+    </modules>
+  </component>
+</project>

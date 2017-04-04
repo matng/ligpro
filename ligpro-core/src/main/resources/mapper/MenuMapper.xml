@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.MenuMapper">
+  <resultMap id="menuMap" type="com.hxd.bean.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleId" jdbcType="INTEGER" property="moduleid" />
+    <result column="menuCode" jdbcType="VARCHAR" property="menucode" />
+    <result column="menuName" jdbcType="VARCHAR" property="menuname" />
+    <result column="parentMenuId" jdbcType="INTEGER" property="parentmenuid" />
+    <result column="menuUrl" jdbcType="VARCHAR" property="menuurl" />
+    <result column="templateId" jdbcType="INTEGER" property="templateid" />
+    <result column="templateUrl" jdbcType="VARCHAR" property="templateurl" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+  </resultMap>
+  
+   <resultMap id="menuMapWithCount" type="com.hxd.bean.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleId" jdbcType="INTEGER" property="moduleid" />
+    <result column="menuCode" jdbcType="VARCHAR" property="menucode" />
+    <result column="menuName" jdbcType="VARCHAR" property="menuname" />
+    <result column="parentMenuId" jdbcType="INTEGER" property="parentmenuid" />
+    <result column="menuUrl" jdbcType="VARCHAR" property="menuurl" />
+    <result column="templateId" jdbcType="INTEGER" property="templateid" />
+    <result column="templateUrl" jdbcType="VARCHAR" property="templateurl" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  
+  
+    <resultMap id="menuMapForPower" type="com.hxd.bean.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleId" jdbcType="INTEGER" property="moduleid" />
+    <result column="menuCode" jdbcType="VARCHAR" property="menucode" />
+    <result column="menuName" jdbcType="VARCHAR" property="menuname" />
+    <result column="parentMenuId" jdbcType="INTEGER" property="parentmenuid" />
+    <result column="statusC" jdbcType="INTEGER" property="statusC" />
+    <result column="statusR" jdbcType="INTEGER" property="statusR" />
+    <result column="statusU" jdbcType="INTEGER" property="statusU" />
+    <result column="statusD" jdbcType="INTEGER" property="statusD" />
+    <result column="statusA" jdbcType="INTEGER" property="statusA" />
+    <result column="statusK" jdbcType="INTEGER" property="statusK" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, moduleId, menuCode, menuName, parentMenuId, menuUrl, templateId, templateUrl, 
+    seqNo, isEnable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="menuMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Menu">
+    insert into menu (id, moduleId, menuCode, 
+      menuName, parentMenuId, menuUrl, 
+      templateId, templateUrl, seqNo, 
+      isEnable)
+    values (#{id,jdbcType=INTEGER}, #{moduleid,jdbcType=INTEGER}, #{menucode,jdbcType=VARCHAR}, 
+      #{menuname,jdbcType=VARCHAR}, #{parentmenuid,jdbcType=INTEGER}, #{menuurl,jdbcType=VARCHAR}, 
+      #{templateid,jdbcType=INTEGER}, #{templateurl,jdbcType=VARCHAR}, #{seqno,jdbcType=INTEGER}, 
+      #{isenable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Menu">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="moduleid != null">
+        moduleId,
+      </if>
+      <if test="menucode != null">
+        menuCode,
+      </if>
+      <if test="menuname != null">
+        menuName,
+      </if>
+      <if test="parentmenuid != null">
+        parentMenuId,
+      </if>
+      <if test="menuurl != null">
+        menuUrl,
+      </if>
+      <if test="templateid != null">
+        templateId,
+      </if>
+      <if test="templateurl != null">
+        templateUrl,
+      </if>
+      <if test="seqno != null">
+        seqNo,
+      </if>
+      <if test="isenable != null">
+        isEnable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="moduleid != null">
+        #{moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="menucode != null">
+        #{menucode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuname != null">
+        #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentmenuid != null">
+        #{parentmenuid,jdbcType=INTEGER},
+      </if>
+      <if test="menuurl != null">
+        #{menuurl,jdbcType=VARCHAR},
+      </if>
+      <if test="templateid != null">
+        #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="templateurl != null">
+        #{templateurl,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Menu">
+    update menu
+    <set>
+      <if test="moduleid != null">
+        moduleId = #{moduleid,jdbcType=INTEGER},
+      </if>
+      <if test="menucode != null">
+        menuCode = #{menucode,jdbcType=VARCHAR},
+      </if>
+      <if test="menuname != null">
+        menuName = #{menuname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentmenuid != null">
+        parentMenuId = #{parentmenuid,jdbcType=INTEGER},
+      </if>
+      <if test="menuurl != null">
+        menuUrl = #{menuurl,jdbcType=VARCHAR},
+      </if>
+      <if test="templateid != null">
+        templateId = #{templateid,jdbcType=INTEGER},
+      </if>
+      <if test="templateurl != null">
+        templateUrl = #{templateurl,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        seqNo = #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        isEnable = #{isenable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Menu">
+    update menu
+    set moduleId = #{moduleid,jdbcType=INTEGER},
+      menuCode = #{menucode,jdbcType=VARCHAR},
+      menuName = #{menuname,jdbcType=VARCHAR},
+      parentMenuId = #{parentmenuid,jdbcType=INTEGER},
+      menuUrl = #{menuurl,jdbcType=VARCHAR},
+      templateId = #{templateid,jdbcType=INTEGER},
+      templateUrl = #{templateurl,jdbcType=VARCHAR},
+      seqNo = #{seqno,jdbcType=INTEGER},
+      isEnable = #{isenable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+ <select id="queryMenuListByPage" resultMap="menuMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from menu 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					menuName like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryMenuListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from menu
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					menuName like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      	</trim>
+	</select> 
+	
+	<select id="queryListByParentId" resultMap="menuMapWithCount" parameterType="java.lang.Integer">
+		SELECT m.* , (SELECT COUNT(*) FROM menu m2 WHERE m2.parentmenuid = m.id) as count
+		FROM menu m WHERE m.parentmenuid=#{id,jdbcType=INTEGER} and seqno > 0 order by seqno
+      	 
+	</select>
+	
+	<select id="queryListByParentIdWithoutFirst" resultMap="menuMapWithCount" parameterType="java.lang.Integer">
+		SELECT m.* , (SELECT COUNT(*) FROM menu m2 WHERE m2.parentmenuid = m.id) as count
+		FROM menu m, template t WHERE m.parentmenuid=#{id,jdbcType=INTEGER} and isenable=1 and m.templateId=t.id and t.type != 0 order by seqno
+      	 
+	</select>
+  	
+  <delete id="deleteMenuByNodeId" parameterType="java.lang.Integer">
+    delete from menu
+    where id = #{id,jdbcType=INTEGER} or parentMenuId = #{id,jdbcType=INTEGER}
+  </delete>
+	
+	
+  <select id="findMenuByMenuUrl" parameterType="java.lang.String" resultMap="menuMapWithCount">
+    select 
+    	m.* , (SELECT COUNT(*) FROM content c WHERE c.menuid = m.id) as count
+    from menu m
+    where m.menuurl = #{menuUrl,jdbcType=VARCHAR} and m.isenable=1
+  </select>
+	
+	
+	<select id="findAllMenu" resultMap="menuMapWithCount">
+	    SELECT m.* , (SELECT COUNT(*) FROM content c WHERE c.menuid = m.id) as count, t.type as type FROM menu m, template t WHERE m.isenable=1 
+	    and m.templateId=t.id order by m.seqno
+  </select>
+  
+  <select id="findMenuByModuleId" resultMap="menuMapForPower" parameterType="map">
+	   <!-- SELECT m.* , (SELECT COUNT(*) FROM content c WHERE c.menuid = m.id) as count FROM menu m WHERE m.moduleId=#{moduleId,jdbcType=VARCHAR} order by m.seqno  --> 
+	    SELECT ss.id,ss.moduleId,ss.menuCode,ss.menuName,ss.parentMenuId , 
+			SUM(ss.c) as statusC,SUM(ss.r) statusR,SUM(ss.u) statusU,SUM(ss.d) statusD,
+			SUM(ss.a) statusA,SUM(ss.k) statusK
+		FROM (
+			SELECT m.id,m.moduleId,m.menuCode,m.menuName,m.parentMenuId,p.resourceId,
+				case when p.resource like '%:c' then 1 else 0 end as c,
+				case when p.resource like '%:r' then 1 else 0 end as r,
+				case when p.resource like '%:u' then 1 else 0 end as u,
+				case when p.resource like '%:d' then 1 else 0 end as d,
+				case when p.resource like '%:a' then 1 else 0 end as a, 
+				case when p.resource like '%:k' then 1 else 0 end as k
+			FROM menu m LEFT JOIN (select * from power where isEnable=1 and ownerId=#{roleId,jdbcType=VARCHAR} ) p on(m.id=p.resourceId) 
+			WHERE moduleId=#{moduleId,jdbcType=VARCHAR} ) ss 
+		GROUP BY ss.menuCode order by ss.id
+  </select>
+  
+  <select id="queryMenuCountByMenuUrl" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select count(*) from menu where menuCode = #{url,jdbcType=VARCHAR}
+  </select>
+	
+</mapper>

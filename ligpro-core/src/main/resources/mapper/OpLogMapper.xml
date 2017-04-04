@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.OpLogMapper">
+  <resultMap id="opLogMap" type="com.hxd.bean.OpLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="loginIP" jdbcType="VARCHAR" property="loginip" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="loginName" jdbcType="VARCHAR" property="loginname" />
+    <result column="opTime" jdbcType="TIMESTAMP" property="optime" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, loginIP, userId, loginName, opTime,content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="opLogMap">
+    select 
+		<include refid="Base_Column_List" />
+    from oplog
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oplog
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.OpLog">
+    insert into oplog (id, title, loginIP, 
+      userId, loginName, opTime, 
+      content)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{loginip,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{optime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.OpLog">
+    insert into oplog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="loginip != null">
+        loginIP,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="loginname != null">
+        loginName,
+      </if>
+      <if test="optime != null">
+        opTime,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null">
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        #{optime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.OpLog">
+    update oplog
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="loginip != null">
+        loginIP = #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null">
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="optime != null">
+        opTime = #{optime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hxd.bean.OpLog">
+    update oplog
+    set title = #{title,jdbcType=VARCHAR},
+      loginIP = #{loginip,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      loginName = #{loginname,jdbcType=VARCHAR},
+      opTime = #{optime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.OpLog">
+    update oplog
+    set title = #{title,jdbcType=VARCHAR},
+      loginIP = #{loginip,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      loginName = #{loginname,jdbcType=VARCHAR},
+      opTime = #{optime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+<select id="queryOpLogListByPage" resultMap="opLogMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from oplog 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					loginName like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryOpLogListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from oplog
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					loginName like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      	</trim>
+	</select> 
+	
+	<delete id="deleteOpLogByBatch" parameterType="java.util.List">
+  		delete from oplog
+  		<where>
+ 		 	<foreach collection="list" index="index" item="item" open="(" separator="or" close=")">     
+  				id=#{item}
+    		</foreach>
+  		</where>
+  </delete>
+	
+</mapper>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.PowerMapper">
+  <resultMap id="powerMap" type="com.hxd.bean.Power">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="ownerId" jdbcType="INTEGER" property="ownerid" />
+    <result column="resource" jdbcType="VARCHAR" property="resource" />
+    <result column="resourceId" jdbcType="INTEGER" property="resourceid" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+  </resultMap>
+  
+    <resultMap id="powerMapCount" type="com.hxd.bean.Power">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="ownerId" jdbcType="INTEGER" property="ownerid" />
+    <result column="resource" jdbcType="VARCHAR" property="resource" />
+    <result column="resourceId" jdbcType="INTEGER" property="resourceid" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  
+   <resultMap id="powerMapWithCount" type="com.hxd.bean.Menu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleId" jdbcType="INTEGER" property="moduleid" />
+    <result column="menuCode" jdbcType="VARCHAR" property="menucode" />
+    <result column="menuName" jdbcType="VARCHAR" property="menuname" />
+    <result column="parentMenuId" jdbcType="INTEGER" property="parentmenuid" />
+    <result column="menuUrl" jdbcType="VARCHAR" property="menuurl" />
+    <result column="templateId" jdbcType="INTEGER" property="templateid" />
+    <result column="templateUrl" jdbcType="VARCHAR" property="templateurl" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, owner, ownerId, resource, resourceId, isEnable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="powerMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from power
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from power
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByOwerId" parameterType="java.lang.Integer">
+    delete from power
+    where ownerId = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Power">
+    insert into power (id, owner, ownerId, 
+      resource, resourceId, isEnable
+      )
+    values (#{id,jdbcType=INTEGER}, #{owner,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+      #{resource,jdbcType=VARCHAR}, #{resourceid,jdbcType=INTEGER}, #{isenable,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Power">
+    insert into power
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="owner != null">
+        owner,
+      </if>
+      <if test="ownerid != null">
+        ownerId,
+      </if>
+      <if test="resource != null">
+        resource,
+      </if>
+      <if test="resourceid != null">
+        resourceId,
+      </if>
+      <if test="isenable != null">
+        isEnable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null">
+        #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null">
+        #{resource,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceid != null">
+        #{resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List">  
+    insert into power (id, owner, ownerId, 
+      resource, resourceId, isEnable
+      ) values
+    <foreach collection="list" item="obj" index="index" separator=",">  
+       (#{obj.id,jdbcType=INTEGER},#{obj.owner,jdbcType=VARCHAR},#{obj.ownerid,jdbcType=INTEGER},#{obj.resource,jdbcType=VARCHAR},#{obj.resourceid,jdbcType=INTEGER},#{obj.isenable,jdbcType=TINYINT})  
+    </foreach>  
+    </insert>  
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Power">
+    update power
+    <set>
+      <if test="owner != null">
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null">
+        ownerId = #{ownerid,jdbcType=INTEGER},
+      </if>
+      <if test="resource != null">
+        resource = #{resource,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceid != null">
+        resourceId = #{resourceid,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        isEnable = #{isenable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Power">
+    update power
+    set owner = #{owner,jdbcType=VARCHAR},
+      ownerId = #{ownerid,jdbcType=INTEGER},
+      resource = #{resource,jdbcType=VARCHAR},
+      resourceId = #{resourceid,jdbcType=INTEGER},
+      isEnable = #{isenable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="batchUpdateDisable"  parameterType="java.util.List">
+    <!--   <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update power 
+            <set>
+              isEnable=0
+            </set>
+            where ownerId=#{item.ownerid,jdbcType=INTEGER} and resourceId=#{item.resourceid,jdbcType=INTEGER}
+      </foreach>
+       -->
+      update power set isEnable=0 where id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+   		#{item.id}
+ 	  </foreach>
+  </update>
+  <update id="batchUpdateEnable"  parameterType="java.util.List">
+      update power set isEnable=1 where id in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+   		#{item.id}
+ 	  </foreach>
+  </update>
+  <select id="queryPowerListByPage" resultMap="powerMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from power 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					owner groupId CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryPowerListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from power
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					owner like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      	</trim>
+	</select> 
+	<select id="queryPowerListByParentId" resultMap="powerMapWithCount" parameterType="map">
+		SELECT m.id,m.moduleId,m.menuCode,m.menuName,m.parentMenuId,m.menuUrl,m.templateId,m.templateUrl,m.seqNo,
+			CASE WHEN p.id is not null then 1 else 0 end as isEnable,(SELECT COUNT(*) FROM power_view m2 WHERE m2.parentmenuid = m.id) AS count fROM power_view m 
+		LEFT JOIN (select * from power where ownerId=#{ownerId,jdbcType=INTEGER}) p on(m.id = p.resourceId) WHERE m.parentmenuid=#{id,jdbcType=INTEGER} GROUP BY m.id
+		
+	</select>
+	
+	<select id="findPowerIsHave" resultMap="powerMapCount" parameterType="com.hxd.bean.Power">
+		select count(*) as count,isEnable from power 
+			where ownerId = #{ownerid,jdbcType=INTEGER} 
+			and resource=#{resource,jdbcType=VARCHAR} 
+	</select>
+	
+	<update id="updatePowerStatus" parameterType="com.hxd.bean.Power">
+		 update power 
+	    	set isEnable = #{isenable,jdbcType=INTEGER}
+	    where ownerId = #{ownerid,jdbcType=INTEGER} and resource=#{resource,jdbcType=VARCHAR}
+	</update>
+	<insert id="saveOrUpdatePower" parameterType="com.hxd.bean.Power">
+	  <selectKey keyProperty="count" resultType="java.lang.Integer" order="BEFORE">
+	    select count(*) as count from power where ownerId = #{ownerid,jdbcType=INTEGER} and resource=#{resource,jdbcType=VARCHAR} and resourceId=#{resourceid,jdbcType=INTEGER}
+	  </selectKey>
+	  <if test="count > 0">
+	    update power 
+	    	set isEnable = 0 
+	    where ownerId = #{ownerid,jdbcType=INTEGER} and resource=#{resource,jdbcType=VARCHAR} and resourceId=#{resourceid,jdbcType=INTEGER}
+	  </if>
+	  <if test="count == 0">
+	    insert into power (id, owner, ownerId, 
+	      resource, resourceId, isEnable
+	      )
+	    values (#{id,jdbcType=INTEGER}, #{owner,jdbcType=VARCHAR}, #{ownerid,jdbcType=INTEGER}, 
+	      #{resource,jdbcType=VARCHAR}, #{resourceid,jdbcType=INTEGER}, #{isenable,jdbcType=TINYINT}
+	      )
+	  </if>
+	</insert>
+	<select id="queryUserPower" resultMap="powerMap" parameterType="java.lang.Integer">
+		select c.resource from user a LEFT JOIN userrole b on(a.id = b.userId)
+		LEFT JOIN power c on(b.roleId = c.ownerId) where c.id is not null and c.isEnable=1 and a.id=#{id,jdbcType=INTEGER}
+	</select>
+
+</mapper>
+
+

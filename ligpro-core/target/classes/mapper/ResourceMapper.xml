@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.ResourceMapper">
+  <resultMap id="resourceMap" type="com.hxd.bean.Resource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="groupId" jdbcType="INTEGER" property="groupid" />
+    <result column="resType" jdbcType="TINYINT" property="restype" />
+    <result column="bigPicUrl" jdbcType="VARCHAR" property="bigpicurl" />
+    <result column="smallPicUrl" jdbcType="VARCHAR" property="smallpicurl" />
+    <result column="fileUrl" jdbcType="VARCHAR" property="fileurl" />
+    <result column="useType" jdbcType="TINYINT" property="usetype" />
+    <result column="resName" jdbcType="VARCHAR" property="resname" />
+    <result column="slidePicDetailsUrl" jdbcType="VARCHAR" property="slidepicdetailsurl" />  <!-- 151117 tl -->
+  </resultMap>
+  <resultMap id="resourceMapWithUrl" type="com.hxd.vo.ResourceVo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="groupId" jdbcType="INTEGER" property="groupid" />
+    <result column="resType" jdbcType="TINYINT" property="restype" />
+    <result column="bigPicUrl" jdbcType="VARCHAR" property="bigpicurl" />
+    <result column="smallPicUrl" jdbcType="VARCHAR" property="smallpicurl" />
+    <result column="fileUrl" jdbcType="VARCHAR" property="fileurl" />
+    <result column="groupName" jdbcType="VARCHAR" property="groupName" />
+    <result column="resName" jdbcType="VARCHAR" property="resName" />
+    <result column="menuUrl" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="slidePicDetailsUrl" jdbcType="VARCHAR" property="slidepicdetailsurl" /> <!-- 151117 tl -->
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, groupId, resType, bigPicUrl, smallPicUrl, fileUrl, resName, useType,slidePicDetailsUrl  <!-- 151117 tl -->
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="resourceMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Resource">
+    insert into resource (id, groupId, resType, 
+      bigPicUrl, smallPicUrl, fileUrl,resName, useType,slidePicDetailsUrl  <!-- 151117 tl -->
+      )
+    values (#{id,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, #{restype,jdbcType=TINYINT}, 
+      #{bigpicurl,jdbcType=VARCHAR}, #{smallpicurl,jdbcType=VARCHAR}, #{fileurl,jdbcType=VARCHAR},
+      #{resname,jdbcType=VARCHAR},#{usetype,jdbcType=TINYINT}, #{slidepicdetailsurl,jdbcType=VARCHAR}  <!-- 151117 tl -->
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Resource">
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="restype != null">
+        resType,
+      </if>
+      <if test="bigpicurl != null">
+        bigPicUrl,
+      </if>
+      <if test="smallpicurl != null">
+        smallPicUrl,
+      </if>
+      <if test="fileurl != null">
+        fileUrl,
+      </if>
+      <if test="resname != null">
+        resName,
+      </if>
+      <if test="usetype != null">
+        useType,
+      </if>
+      <if test="slidepicdetailsurl != null">  <!-- 151117 tl -->
+        slidePicDetailsUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="restype != null">
+        #{restype,jdbcType=TINYINT},
+      </if>
+      <if test="bigpicurl != null">
+        #{bigpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallpicurl != null">
+        #{smallpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null">
+        #{resname,jdbcType=VARCHAR},
+      </if>
+       <if test="usetype != null">
+        #{usetype,jdbcType=TINYINT},
+      </if>
+      <if test="slidepicdetailsurl != null"> <!-- 151117 tl -->
+        #{slidepicdetailsurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Resource">
+    update resource
+    <set>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="restype != null">
+        resType = #{restype,jdbcType=TINYINT},
+      </if>
+      <if test="bigpicurl != null">
+        bigPicUrl = #{bigpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallpicurl != null">
+        smallPicUrl = #{smallpicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null">
+        fileUrl = #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="resname != null">
+        resName = #{resname,jdbcType=VARCHAR},
+      </if>
+      <if test="usetype != null">
+        useType = #{usetype,jdbcType=TINYINT},
+      </if>
+	  <if test="slidepicdetailsurl != null">     <!-- 151117 -->
+        slidePicDetailsUrl = #{slidepicdetailsurl,jdbcType=VARCHAR},
+      </if>  
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Resource">
+    update resource
+    set groupId = #{groupid,jdbcType=INTEGER},
+      resType = #{restype,jdbcType=TINYINT},
+      bigPicUrl = #{bigpicurl,jdbcType=VARCHAR},
+      smallPicUrl = #{smallpicurl,jdbcType=VARCHAR},
+      fileUrl = #{fileurl,jdbcType=VARCHAR},
+      resName = #{resname,jdbcType=VARCHAR},
+      useType = #{usetype,jdbcType=TINYINT},
+      slidePicDetailsUrl = #{slidepicdetailsurl,jdbcType=VARCHAR}  <!-- ,15117 -->
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+ <select id="queryResourceListByPage" resultMap="resourceMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from resource 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					resName like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      		
+			<if test="restype != null">
+				AND (
+					resType=#{restype,jdbcType=TINYINT}
+				)
+			</if>
+			
+			<if test="groupid != null">
+				AND (
+					groupId = #{groupid,jdbcType=INTEGER}
+				)
+      		</if>
+      		
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryResourceListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from resource
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					resName like CONCAT('%',#{sSearch},'%')
+					
+				)
+			</if>
+				<if test="restype != null">
+				AND (
+					resType=#{restype,jdbcType=TINYINT}
+				)
+			</if>
+			<if test="groupid != null">
+				AND (
+					groupId = #{groupid,jdbcType=INTEGER}
+				)
+      		</if>
+      	</trim>
+	</select>
+	
+	<delete id="deleteResourceByBatch" parameterType="java.util.List">
+  		delete from resource
+  		<where>
+ 		 	<foreach collection="list" index="index" item="item" open="(" separator="or" close=")">     
+  				id=#{item}
+    		</foreach>
+  		</where>
+  	</delete>
+  	
+  	<select id="queryResourceCountByGroupID" resultType="java.lang.Integer" parameterType="com.hxd.bean.Resource">
+		SELECT COUNT(*) FROM resource WHERE groupid = #{groupid,jdbcType=INTEGER}
+      	 
+	</select>
+	
+	<select id="findResourceByUserTypeWithLimit" resultMap="resourceMapWithUrl" parameterType="com.hxd.vo.ResourceVo"> <!-- 151117 tl -->
+		SELECT rg.groupName,rg.menuUrl, r.id,r.resName,r.resType,r.bigPicUrl,r.smallPicUrl,r.fileUrl,r.slidePicDetailsUrl FROM resourcegroup rg, resource r 
+		WHERE rg.id=r.groupId AND r.useType=#{useType,jdbcType=INTEGER} ORDER BY r.id desc LIMIT 0,#{limit,jdbcType=INTEGER}
+	</select>
+	
+	
+</mapper>

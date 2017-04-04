@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.ContentMapper">
+  <resultMap id="contentMap" type="com.hxd.bean.Content">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menuId" jdbcType="INTEGER" property="menuid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="htmlUrl" jdbcType="VARCHAR" property="htmlurl" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="isCheck" jdbcType="TINYINT" property="ischeck" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menuId, title, keyword, type, htmlUrl, seqNo, addTime, isCheck,content
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="contentMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Content">
+    insert into content (id, menuId, title, 
+      keyword, type, htmlUrl, 
+      seqNo, addTime, isCheck, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{menuid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{keyword,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{htmlurl,jdbcType=VARCHAR}, 
+      #{seqno,jdbcType=INTEGER}, #{addtime,jdbcType=TIMESTAMP}, #{ischeck,jdbcType=TINYINT}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Content">
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menuid != null">
+        menuId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="keyword != null">
+        keyword,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="htmlurl != null">
+        htmlUrl,
+      </if>
+      <if test="seqno != null">
+        seqNo,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+      <if test="ischeck != null">
+        isCheck,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menuid != null">
+        #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="htmlurl != null">
+        #{htmlurl,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ischeck != null">
+        #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Content">
+    update content
+    <set>
+      <if test="menuid != null">
+        menuId = #{menuid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null">
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="htmlurl != null">
+        htmlUrl = #{htmlurl,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        seqNo = #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ischeck != null">
+        isCheck = #{ischeck,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hxd.bean.Content">
+    update content
+    set menuId = #{menuid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      htmlUrl = #{htmlurl,jdbcType=VARCHAR},
+      seqNo = #{seqno,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      isCheck = #{ischeck,jdbcType=TINYINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Content">
+    update content
+    set menuId = #{menuid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      htmlUrl = #{htmlurl,jdbcType=VARCHAR},
+      seqNo = #{seqno,jdbcType=INTEGER},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      isCheck = #{ischeck,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="queryContentListByPage" resultMap="contentMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from content 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					title like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      		
+      		<if test="type != null">				
+				AND (
+					type=#{type,jdbcType=TINYINT}
+				)
+      		</if>
+      		
+      		<if test="menuid != null">				
+				AND (
+					menuId=#{menuid,jdbcType=INTEGER}
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryContentListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from content
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					title like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      		
+      		<if test="type != null">				
+				AND (
+					type=#{type,jdbcType=TINYINT}
+				)
+      		</if>
+      		
+      		<if test="menuid != null">				
+				AND (
+					menuId=#{menuid,jdbcType=INTEGER}
+				)
+      		</if>
+      	</trim>
+	</select>
+	
+	
+	<delete id="deleteContentByBatch" parameterType="java.util.List">
+  		delete from content
+  		<where>
+ 		 	<foreach collection="list" index="index" item="item" open="(" separator="or" close=")">     
+  				id=#{item}
+    		</foreach>
+  		</where>
+  	</delete>
+  	
+  	<select id="findLimitContentByMenuId" parameterType="map" resultMap="contentMap">
+  		select c.id,c.title,c.type,c.addTime,m.menuUrl as htmlurl from content c,Menu m 
+  		where m.id=c.menuId 
+  		<if test="id == 0">
+			and m.parentMenuId=#{menuid,jdbcType=INTEGER}
+      	</if>
+      	<if test="id == 1">
+      		and c.menuId=#{menuid,jdbcType=INTEGER}
+      	</if>
+  		 and c.ischeck=1 order by c.addTime desc limit #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+  	</select>
+  	
+  	<select id="selectContentByMenuId" parameterType="java.lang.Integer" resultMap="contentMap">
+	    select 
+	    	<include refid="Base_Column_List" />
+	    from content
+	    where menuid = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="queryUseCountByResource" parameterType="java.lang.String" resultType="java.lang.Integer">
+	    select count(*) from content where content like CONCAT('%',#{rsName},'%')
+  	</select>
+  	
+
+  	<select id="findLimitContentByTypeUnion" parameterType="java.lang.Integer" resultMap="contentMap">
+		(select c.id,c.title,c.type,c.addTime,m.menuUrl as htmlurl,m.templateUrl as content from content c,Menu m where m.id=c.menuId and c.ischeck=1 and m.templateUrl like "company%" order by c.type asc,c.addTime desc LIMIT 0,#{limit,jdbcType=INTEGER})
+		union all
+		(select c.id,c.title,c.type,c.addTime,m.menuUrl as htmlurl,m.templateUrl as content from content c,Menu m where m.id=c.menuId and c.ischeck=1 and m.templateUrl like "latest%" order by c.type asc,c.addTime desc LIMIT 0,#{limit,jdbcType=INTEGER})
+		union all
+		(select c.id,c.title,c.type,c.addTime,m.menuUrl as htmlurl,m.templateUrl as content from content c,Menu m where m.id=c.menuId and c.ischeck=1 and m.templateUrl like "business%" order by c.type asc,c.addTime desc LIMIT 0,#{limit,jdbcType=INTEGER})
+		union all
+		(select c.id,c.title,c.type,c.addTime,m.menuUrl as htmlurl,m.templateUrl as content from content c,Menu m where m.id=c.menuId and c.ischeck=1 and m.templateUrl like "institute%" order by c.type asc,c.addTime desc LIMIT 0,#{limit,jdbcType=INTEGER})
+	</select> 
+</mapper>

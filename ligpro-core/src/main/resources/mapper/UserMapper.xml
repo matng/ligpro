@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxd.dao.UserMapper" >
+  <resultMap id="userMap" type="com.hxd.bean.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="loginName" property="loginname" jdbcType="VARCHAR" />
+    <result column="psw" property="psw" jdbcType="VARCHAR" />
+    <result column="realName" property="realname" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="roleId" property="roleId" jdbcType="INTEGER" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+	<sql id="Base_Column_List">
+		id,
+		loginname,
+		psw,
+		realname,
+		gender,
+		email,
+		mobile,
+		status
+	</sql>
+  
+  <select id="selectByPrimaryKey" resultMap="userMap" parameterType="java.lang.Integer" >
+    select 
+     <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.hxd.bean.User">
+    insert into user (loginName, psw, 
+      realName, gender, mobile, 
+      email, status)
+    values (#{loginname,jdbcType=VARCHAR}, #{psw,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+  </insert>
+  
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.hxd.bean.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginname != null" >
+        loginName,
+      </if>
+      <if test="psw != null" >
+        psw,
+      </if>
+      <if test="realname != null" >
+        realName,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginname != null" >
+        #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.User" >
+    update user
+    <set >
+      <if test="loginname != null" >
+        loginName = #{loginname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        psw = #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.User" >
+    update user
+    set loginName = #{loginname,jdbcType=VARCHAR},
+      psw = #{psw,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryUserListByPage" resultMap="userMap" parameterType="map">
+		SELECT 
+	        a.id, a.loginName, a.psw,a.realName, a.gender, a.mobile,a. email, a.status, b.roleId, c.roleName 
+		from user a left join userrole b on(a.id=b.userId) left join role c on(b.roleId=c.id)
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					a.loginname like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by a.id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryUserListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from user
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					loginname like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      	</trim>
+	</select>
+	
+	
+	<delete id="deleteUserByBatch" parameterType="java.util.List">
+  		delete from user
+  		<where>
+ 		 	<foreach collection="list" index="index" item="item" open="(" separator="or" close=")">     
+  				id=#{item}
+    		</foreach>
+  		</where>
+  </delete>
+  
+  <select id="findBySelective" resultMap="userMap" parameterType="com.hxd.bean.User">
+    select 
+    <include refid="Base_Column_List" />
+    from user  
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="loginname != null">
+				AND loginname= #{loginname,jdbcType=VARCHAR}
+      		</if>
+      		<if test="email != null">
+				AND email= #{email,jdbcType=VARCHAR}
+      		</if>
+     </trim>   
+  </select>
+  
+    <select id="selectByLoginNameOrEmail" resultMap="userMap" parameterType="com.hxd.bean.User">
+    select 
+    <include refid="Base_Column_List" />
+    from user  
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="loginname != null">
+				OR loginname= #{loginname,jdbcType=VARCHAR}
+      		</if>
+      		<if test="email != null">
+				OR email= #{email,jdbcType=VARCHAR}
+      		</if>
+     </trim>   
+  </select>
+  
+
+</mapper>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.ModuleMapper">
+  <resultMap id="moduleMap" type="com.hxd.bean.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleCode" jdbcType="VARCHAR" property="modulecode" />
+    <result column="moduleName" jdbcType="VARCHAR" property="modulename" />
+    <result column="moduleDesc" jdbcType="VARCHAR" property="moduledesc" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+  </resultMap>
+  
+  <resultMap id="moduleMapWithCount" type="com.hxd.bean.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="moduleCode" jdbcType="VARCHAR" property="modulecode" />
+    <result column="moduleName" jdbcType="VARCHAR" property="modulename" />
+    <result column="moduleDesc" jdbcType="VARCHAR" property="moduledesc" />
+    <result column="seqNo" jdbcType="INTEGER" property="seqno" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+     <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, moduleCode, moduleName, moduleDesc, seqNo, isEnable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="moduleMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Module">
+    insert into module (id, moduleCode, moduleName, 
+      moduleDesc, seqNo, isEnable
+      )
+    values (#{id,jdbcType=INTEGER}, #{modulecode,jdbcType=VARCHAR}, #{modulename,jdbcType=VARCHAR}, 
+      #{moduledesc,jdbcType=VARCHAR}, #{seqno,jdbcType=INTEGER}, #{isenable,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Module">
+    insert into module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="modulecode != null">
+        moduleCode,
+      </if>
+      <if test="modulename != null">
+        moduleName,
+      </if>
+      <if test="moduledesc != null">
+        moduleDesc,
+      </if>
+      <if test="seqno != null">
+        seqNo,
+      </if>
+      <if test="isenable != null">
+        isEnable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="modulecode != null">
+        #{modulecode,jdbcType=VARCHAR},
+      </if>
+      <if test="modulename != null">
+        #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="moduledesc != null">
+        #{moduledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Module">
+    update module
+    <set>
+      <if test="modulecode != null">
+        moduleCode = #{modulecode,jdbcType=VARCHAR},
+      </if>
+      <if test="modulename != null">
+        moduleName = #{modulename,jdbcType=VARCHAR},
+      </if>
+      <if test="moduledesc != null">
+        moduleDesc = #{moduledesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seqno != null">
+        seqNo = #{seqno,jdbcType=INTEGER},
+      </if>
+      <if test="isenable != null">
+        isEnable = #{isenable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Module">
+    update module
+    set moduleCode = #{modulecode,jdbcType=VARCHAR},
+      moduleName = #{modulename,jdbcType=VARCHAR},
+      moduleDesc = #{moduledesc,jdbcType=VARCHAR},
+      seqNo = #{seqno,jdbcType=INTEGER},
+      isEnable = #{isenable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryModuleListByPage" resultMap="moduleMap" parameterType="map">
+		SELECT 
+	        <include refid="Base_Column_List" />
+		from module 
+
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					moduleName like CONCAT('%',#{sSearch},'%')
+				)
+      		</if>
+      	</trim>
+
+		<choose>
+			<when test="orderField !=null and orderField !=''">
+				 ORDER BY ${orderField} <if test="orderDirection != null and orderDirection != ''">${orderDirection}</if>
+			</when>
+			<otherwise>
+				 order by id DESC
+			</otherwise>
+		</choose>
+      	 
+	</select>
+	
+	<select id="queryModuleListCount" resultType="java.lang.Integer" parameterType="map">
+		select count(0) as c from module
+	
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="sSearch != null">
+				AND (
+					moduleName like CONCAT('%',#{sSearch},'%')
+					
+				)
+      		</if>
+      	</trim>
+	</select>
+	
+	<select id="queryAll" resultType="com.hxd.bean.Module" resultMap="moduleMap">
+		select * from module where isEnable = 1
+	</select>
+	
+	<select id="queryForPower" resultMap="moduleMapWithCount" parameterType="java.lang.Integer">
+		SELECT m.id,m.moduleCode,moduleName,m.moduleDesc,m.seqNo,m.isEnable,
+			CASE WHEN p.id is not null then 1 else 0 end as count 
+ 		FROM module m LEFT JOIN (SELECT * FROM power WHERE isEnable=1 AND ownerId=#{roleId,jdbcType=VARCHAR}) p ON(m.moduleCode=p.resource)
+	</select>
+	
+	<delete id="deleteModuleByBatch" parameterType="java.util.List">
+  		delete from module
+  		<where>
+ 		 	<foreach collection="list" index="index" item="item" open="(" separator="or" close=")">     
+  				id=#{item}
+    		</foreach>
+  		</where>
+  </delete>
+</mapper>

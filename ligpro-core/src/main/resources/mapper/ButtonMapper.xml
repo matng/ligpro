@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxd.dao.ButtonMapper">
+  <resultMap id="buttonMap" type="com.hxd.bean.Button">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="menuCode" jdbcType="VARCHAR" property="menucode" />
+    <result column="btnName" jdbcType="VARCHAR" property="btnname" />
+    <result column="btnCode" jdbcType="VARCHAR" property="btncode" />
+    <result column="isEnable" jdbcType="TINYINT" property="isenable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  <![CDATA[
+    id, menuCode, btnName, btnCode, isEnable
+    ]]>
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="buttonMap">
+    select 
+    <include refid="Base_Column_List" />
+    from button
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from button
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxd.bean.Button">
+    insert into button (id, menuCode, btnName, 
+      btnCode, isEnable)
+    values (#{id,jdbcType=INTEGER}, #{menucode,jdbcType=VARCHAR}, #{btnname,jdbcType=VARCHAR}, 
+      #{btncode,jdbcType=VARCHAR}, #{isenable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxd.bean.Button">
+    insert into button
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menucode != null">
+        menuCode,
+      </if>
+      <if test="btnname != null">
+        btnName,
+      </if>
+      <if test="btncode != null">
+        btnCode,
+      </if>
+      <if test="isenable != null">
+        isEnable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="menucode != null">
+        #{menucode,jdbcType=VARCHAR},
+      </if>
+      <if test="btnname != null">
+        #{btnname,jdbcType=VARCHAR},
+      </if>
+      <if test="btncode != null">
+        #{btncode,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        #{isenable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxd.bean.Button">
+    update button
+    <set>
+      <if test="menucode != null">
+        menuCode = #{menucode,jdbcType=VARCHAR},
+      </if>
+      <if test="btnname != null">
+        btnName = #{btnname,jdbcType=VARCHAR},
+      </if>
+      <if test="btncode != null">
+        btnCode = #{btncode,jdbcType=VARCHAR},
+      </if>
+      <if test="isenable != null">
+        isEnable = #{isenable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxd.bean.Button">
+    update button
+    set menuCode = #{menucode,jdbcType=VARCHAR},
+      btnName = #{btnname,jdbcType=VARCHAR},
+      btnCode = #{btncode,jdbcType=VARCHAR},
+      isEnable = #{isenable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
