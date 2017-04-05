@@ -411,6 +411,7 @@ var validator = $("#MyResourceGroupForm").validate({
 				//var ob = obj[i].usetype==1?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";
 				var ob1 = obj[i].usetype==2?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";  //151113
 				var ob2 = obj[i].usetype==3?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";
+				console.log("picUrl====="+picUrl);
 				html += "<li>"+
 					"<a href="+picUrl+" title="+obj[i].resname+" data-rel=\"colorbox\">"+
 					"<img width=\"150\" height=\"150\" alt=\"150x150\" src="+picUrl+" />"+
