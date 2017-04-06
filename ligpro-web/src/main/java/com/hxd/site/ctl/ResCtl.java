@@ -1,5 +1,36 @@
 package com.hxd.site.ctl;
-
+/**
+ *                            _ooOoo_
+ *                           o8888888o
+ *                           88" . "88
+ *                           (| -_- |)
+ *                            O\ = /O
+ *                        ____/`---'\____
+ *                      .   ' \\| |// `.
+ *                       / \\||| : |||// \
+ *                     / _||||| -:- |||||- \
+ *                       | | \\\ - /// | |
+ *                     | \_| ''\---/'' | |
+ *                      \ .-\__ `-` ___/-. /
+ *                   ___`. .' /--.--\ `. . __
+ *                ."" '< `.___\_<|>_/___.' >'"".
+ *               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+ *                 \ \ `-. \_ __\ /__ _/ .-` / /
+ *         ======`-.____`-.___\_____/___.-`____.-'======
+ *                            `=---='
+ *
+ *         .............................................
+ *                        佛祖镇楼                  BUG辟易
+ *               佛曰:
+ *                       写字楼里写字间，写字间里程序员；
+ *                       程序人员写程序，又拿程序换酒钱。
+ *                       酒醒只在网上坐，酒醉还来网下眠；
+ *                       酒醉酒醒日复日，网上网下年复年。
+ *                       但愿老死电脑间，不愿鞠躬老板前；
+ *                       奔驰宝马贵者趣，公交自行程序员。
+ *                       别人笑我忒疯癫，我笑自己命太贱；
+ *                       不见满街漂亮妹，哪个归得程序员？
+ */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -11,6 +42,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hxd.util.ConfigUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +67,7 @@ import com.hxd.service.ResourceService;
 import com.hxd.util.ImgUtil;
 import com.hxd.util.SpellUtil;
 import com.hxd.util.StrUtil;
+import com.hxd.util.DateUtil;
 import com.hxd.vo.AdditionalParameters;
 import com.hxd.vo.PageData;
 import com.hxd.vo.ResourceGroupItem;
@@ -58,6 +91,10 @@ public class ResCtl extends BaseCtl {
 	 //上传目录
     private @Value("upload/")
     String uploadPath;
+
+	private static String baseFileUploadDir = ConfigUtil.get("baseFileUploadDir");
+	private static String separator = ConfigUtil.get("sysSeparator");
+
 	
     @ControllerLog(cleanData="false",desc="log.res.gallery.read")
 	@RequiresPermissions("gallery:r")
@@ -401,9 +438,22 @@ public class ResCtl extends BaseCtl {
         try {
             response.setContentType("textml;charset=UTF-8");
             Resource rs = JSON.parseObject(json,Resource.class);
-            
+
+
+			String currentYear = DateUtil.getCurYear();
+			String currentMonth = DateUtil.getCurMM();
+			String currentDay = DateUtil.getCurDD();
+			String currentTime = DateUtil.getCurHHmmssSSS();
+
+			String originalName = file.getOriginalFilename();
+			String fileName = SpellUtil.getEname(file.getOriginalFilename());
+			//File uploadDir = new File(path+resourcePathString+SpellUtil.getEname(rs.getBigpicurl()));
+
             String path = request.getSession().getServletContext().getRealPath("/");
             System.out.println("@@@###@@@:"+path);
+
+            String pathDate = currentYear+separator+currentMonth+separator+currentDay+separator+currentTime;
+
             String resourcePathString = "";
             switch (rs.getRestype()) {
     		case 1:
@@ -422,14 +472,15 @@ public class ResCtl extends BaseCtl {
     		default:
     			break;
     		}
-            String originalName = file.getOriginalFilename();
-            String fileName = SpellUtil.getEname(file.getOriginalFilename());
-            File uploadDir = new File(path+resourcePathString+SpellUtil.getEname(rs.getBigpicurl()));
-    		if (!uploadDir.exists()) {// 不存在则创建
+
+			File uploadDir = new File(baseFileUploadDir+ resourcePathString + pathDate);
+
+     		if (!uploadDir.exists()) {// 不存在则创建
     			uploadDir.mkdirs();
     		}
-            String localPath = uploadDir+File.separator+fileName;
-            String dbPath = resourcePathString+SpellUtil.getEname(rs.getBigpicurl())+"/"+fileName;
+
+            String localPath = uploadDir + separator + fileName;
+            String dbPath = resourcePathString + pathDate + separator + fileName;
             file.transferTo(new File(localPath));
             rs.setFileurl(dbPath);
             rs.setResname(originalName);
@@ -439,15 +490,16 @@ public class ResCtl extends BaseCtl {
             	//获取不带拓展名的文件名称
             	String fileNameNew = fileName.substring(0, fileName.lastIndexOf("."));
             	String fileExtention = fileName.substring(fileName.lastIndexOf("."), fileName.length());            	
-            	String smallPicPath = uploadDir+File.separator+fileNameNew+"_s"+fileExtention;
-            	String bigPicPath = uploadDir+File.separator+fileNameNew+"_b"+fileExtention;
+            	String smallPicPath = uploadDir + separator + fileNameNew + "_s" + fileExtention;
+            	String bigPicPath = uploadDir + separator + fileNameNew + "_b" + fileExtention;
             	//生成缩略图
             	ImgUtil.ImgForSize(localPath, smallPicPath, Integer.parseInt(getMessage("Small_Pic_Width")), Integer.parseInt(getMessage("Small_Pic_Height")));
             	//压缩图片
             	ImgUtil.ImgScaleBySize(localPath, bigPicPath);
             	ImgUtil.imgScaleByEstimateSize(uploadDir+"",fileNameNew+"_b"+fileExtention);
-            	String smallPicDbPath = resourcePathString+SpellUtil.getEname(rs.getBigpicurl())+"/"+fileNameNew+"_s"+fileExtention;
-            	String bigPicDbPath	  = resourcePathString+SpellUtil.getEname(rs.getBigpicurl())+"/"+fileNameNew+"_b"+fileExtention;
+
+            	String smallPicDbPath = resourcePathString + pathDate + separator +fileNameNew+"_s" + fileExtention;
+            	String bigPicDbPath	  = resourcePathString + pathDate + separator +fileNameNew+"_b" + fileExtention;
             	System.out.println("@@@@filename$$$$:"+smallPicDbPath);
             	rs.setSmallpicurl(smallPicDbPath);
             	rs.setBigpicurl(bigPicDbPath);
