@@ -17,6 +17,12 @@ public class DateUtil {
 	public static final String M = "M";
 
 	public static final String YMDH = "yyyyMMddHH";
+
+	public static final String MM = "MM";
+
+	public static final String DD = "dd";
+
+	public static final String HHmmssSSS = "HHmmssSSS";
 	
 	public static String date2Str(Date date) {
 		String dStr = "";
@@ -64,6 +70,33 @@ public class DateUtil {
 	
 	public static String getCurMonth() {
 		SimpleDateFormat sdf = new SimpleDateFormat(M);
+		return sdf.format(new Date());
+	}
+
+	/**
+	 * <获取当前年月>
+	 * @return
+	 */
+	public static String getCurMM(){
+		SimpleDateFormat sdf = new SimpleDateFormat(MM);
+		return sdf.format(new Date());
+	}
+
+	/**
+	 * <获取当前日>
+	 * @return
+	 */
+	public static String getCurDD(){
+		SimpleDateFormat sdf = new SimpleDateFormat(DD);
+		return sdf.format(new Date());
+	}
+
+	/**
+	 * <获取当前时分秒毫秒>
+	 * @return
+	 */
+	public static String getCurHHmmssSSS(){
+		SimpleDateFormat sdf = new SimpleDateFormat(HHmmssSSS);
 		return sdf.format(new Date());
 	}
 	

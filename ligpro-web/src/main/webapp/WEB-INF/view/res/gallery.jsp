@@ -407,7 +407,8 @@ var validator = $("#MyResourceGroupForm").validate({
 			var set = "<fmt:message key='picture_set'/>";
 			var unset = "<fmt:message key='picture_set'/>";
 			for(var i = 0;i< obj.length;i++){
-				var picUrl = '<fmt:message key="Base_Path" />'+obj[i].bigpicurl;
+				//var picUrl = '<fmt:message key="Base_Path" />'+obj[i].bigpicurl;
+                var picUrl = "<c:url value='../ligproDir'/>"+obj[i].bigpicurl;
 				//var ob = obj[i].usetype==1?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";
 				var ob1 = obj[i].usetype==2?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";  //151113
 				var ob2 = obj[i].usetype==3?"<fmt:message key='picture_unset'/>":"<fmt:message key='picture_set'/>";
