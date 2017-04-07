@@ -98,7 +98,7 @@
 					<c:forEach var="slider" items="${sliderPicList}" varStatus="s">
 						<c:if test="${s.index==0 }">
 							<div class="item active"
-								style="background-image:url(.${slider.fileurl})">
+								style="background-image:url(/ligproDir${slider.fileurl})">
 								<div class="container">
 									<div class="row slide-margin">
 										<div class="col-sm-6">
@@ -115,7 +115,7 @@
 						</c:if>
 						<c:if test="${s.index!=0 }">
 							<div class="item"
-								style="background-image:url(.${slider.fileurl}) ">
+								style="background-image:url(/ligproDir${slider.fileurl}) ">
 								<div class="container">
 									<div class="row slide-margin">
 										<div class="col-sm-6">
