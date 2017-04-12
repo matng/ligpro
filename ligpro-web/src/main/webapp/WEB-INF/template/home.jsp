@@ -174,14 +174,14 @@
 													class="portfolio-item ${hot.menuUrl} col-xs-12 col-sm-4 col-md-3 fea_transparent">
 													<div class="recent-work-wrap fea_transparent">
 														<img class="img-responsive fea_transparent"
-															src="<c:url value='${hot.smallpicurl}'/>" alt="">
+															src="<c:url value='../ligproDir${hot.fileurl}'/>" alt="">
 														<div class="overlay">
 															<div class="recent-work-inner">
 																<h3>
 																	<a href="#">${hot.resName}</a>
 																</h3>
 																<a class="preview"
-																	href="<c:url value='${hot.bigpicurl}'/>"
+																	href="<c:url value='../ligproDir/${hot.bigpicurl}'/>"
 																	rel="prettyPhoto"><i class="fa fa-eye"></i> 看大图</a><br>
 																<a class="preview"
 																	href="<c:url value='${hot.menuUrl}'/>"><i

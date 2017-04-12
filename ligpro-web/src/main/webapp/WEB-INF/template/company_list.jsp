@@ -23,8 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
 
     <section id="mainBanner" class="no-margin">
-		<div class="imgItem" style="background-image: url(<c:url value='/html/images/logo/JK_Company_Banner.png'/>)">     
-		</div><!--/.item-->
+		<div class="container">
+			<div class="row">
+				<div class="imgItem" style="background-image: url(<c:url value='/html/images/logo/detail-banner.png'/>)">
+				</div><!--/.item-->
+			</div>
+		</div>
     </section><!--/#main-slider-->
 		
 	<section id="hxd" >
