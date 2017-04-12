@@ -110,7 +110,7 @@
 	<div class="container">
 		<div class="row">
 			<div style="text-align: center;">
-				<font color=#8acaeb>Copyright © 2015 贵州交勘生态园林有限责任公司</font>
+				<font color=#8acaeb>Copyright © 2017 山东天馈防雷科技有限公司</font>
 			</div>
 		</div>
 	</div>

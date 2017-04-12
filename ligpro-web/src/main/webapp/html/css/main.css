@@ -319,7 +319,7 @@ input.search-form:hover {
 }
 
 .navbar-inverse .navbar-nav .dropdown-menu {
-  background-color: rgba(0,0,0,.85);
+  background-color: rgba(66,20,57,.85);
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
@@ -1616,7 +1616,7 @@ shortcodes page css
   background: -webkit-linear-gradient(top, #dddddd, #fefefe); /* Webkit: Safari 5.1+, Chrome 10+ */
   background: -o-linear-gradient(top, #dddddd, #fefefe); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, #dddddd, #fefefe);  /* IE 10 */
-  FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#dddddd, endColorStr=#fefefe);/* IE < 10 ÕâÒ»ÐÐ±ØÐëÐ´ÔÚ×îºó */
+  FILTER: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#dddddd, endColorStr=#fefefe);/* IE < 10 ï¿½ï¿½Ò»ï¿½Ð±ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ */
   
   position: relative;
   overflow: auto;
@@ -1629,18 +1629,18 @@ shortcodes page css
   overflow: hidden;
   width: 184px;  /*add by tl in 151223*/
   background:#fff; /*add  by tl in 151223*/
-  padding: 4.5px 4.5px 100px 4.5px; /*add by tl in 151223 °×É«±ß¿ò  Ìî³äÔªËØ¾à±ß¿òµÄ¾àÀë*/
+  padding: 4.5px 4.5px 100px 4.5px; /*add by tl in 151223 ï¿½ï¿½É«ï¿½ß¿ï¿½  ï¿½ï¿½ï¿½Ôªï¿½Ø¾ï¿½ß¿ï¿½Ä¾ï¿½ï¿½ï¿½*/
 }
 
 
 #hxd .box .nav > span {
   background: #fff url(../images/logo/LeftMenuBk.png);   /*#f5f5f5 151223 tl*/
   background-repeat: no-repeat; /*add by tl in 151223*/
-  margin-top:2px; /*add by tl in 151223 ÔªËØÓëÖÜÎ§ÔªËØµÄ¾àÀëÁË*/
+  margin-top:2px; /*add by tl in 151223 Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§Ôªï¿½ØµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½*/
   border-top: 1px solid #fff;
   display: block;
   overflow: hidden;
-  padding: 4.5px 0 9px 0; /*15px 0 15px 0 modified by tl in 151223 top¾àÀëÓënavµÄpadding»¥ÏàÓ°Ïì*/
+  padding: 4.5px 0 9px 0; /*15px 0 15px 0 modified by tl in 151223 topï¿½ï¿½ï¿½ï¿½ï¿½ï¿½navï¿½ï¿½paddingï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½*/
   text-align:center;
   font: 14px "Microsoft YaHei",å¾®è½¯é›…é»‘; /*16px modified by tl in 151223*/
   height: 32px;  /*add by tl in 151223*/
@@ -1712,7 +1712,7 @@ shortcodes page css
   /*margin-top:3px;*/  /*add by tl in 151224*/
   border-radius: 10px;  /*add by tl in 151224*/
   background:#fff; /*add  by tl in 151224*/
-  padding: 15px 4.5px 400px 10px; /*add by tl in 151224 °×É«±ß¿ò  Ìî³äÔªËØ¾à±ß¿òµÄ¾àÀë*/
+  padding: 15px 4.5px 400px 10px; /*add by tl in 151224 ï¿½ï¿½É«ï¿½ß¿ï¿½  ï¿½ï¿½ï¿½Ôªï¿½Ø¾ï¿½ß¿ï¿½Ä¾ï¿½ï¿½ï¿½*/
 }
 
 #hxd .box  .cms p {

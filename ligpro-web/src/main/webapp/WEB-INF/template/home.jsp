@@ -36,12 +36,12 @@
 }
 
 .content-bg {
-	background: url("<c:url value='/html/images/logo/bg.png'/>") no-repeat
+	background: url("<c:url value='/html/images/logo/bg.jpg'/>") no-repeat
 		center center;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<c:url value="/html/images/logo/bg.png"/>',
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<c:url value="/html/images/logo/bg-old.png"/>',
 		sizingMethod='scale');
 	-ms-filter:
-		"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<c:url value="/html/images/logo/bg.png
+		"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<c:url value="/html/images/logo/bg-old.png
 		"/>', sizingMethod='scale')";
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
