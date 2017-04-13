@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/tablib.jsp"%>
 <div class="nav">
-    <span id="title" style="background-image: url(<c:url value='/html/images/logo/JK_${parentMenu.menucode}_MenuTitle.png'/>)"></span>
+    <span id="title" style="width:100%;background-image: url(<c:url value='/html/images/logo/JK_${parentMenu.menucode}_MenuTitle.png'/>)"></span>
 	<c:forEach var="lmenu" items="${leftMenuList}" varStatus="s">  															
 		<c:choose >
 			<c:when test="${(lmenu.menuname eq menuTitle) or (lmenu.menuname eq contentParentMenuTitle)}"><!-- add by tl in 151225 -->

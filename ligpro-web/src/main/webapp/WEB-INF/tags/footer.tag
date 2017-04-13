@@ -35,18 +35,18 @@
 		<div class="row">
 			<div class="col-sm-4 footer1">
 				<div style="text-align: left;">
-					<div><img width="268px" src="<c:url value='/html/images/logo/logo-1.png'/>" alt="logo"></div>
+					<div><img width="268px" src="<c:url value='/html/images/logo/ligpro-logo-footer.png'/>" alt="logo"></div>
 				</div>
 				<div style="text-align: left;padding-top:5px;">
 					<div style="float: left;padding-top:5px;padding-right:16px">
 						<img height="35px" src="<c:url value='/html/images/logo/csh.png'/>" alt="logo">
 					</div>
 					<div style="float: none;padding-top:5px;">
-						<div style="padding-top:18px;font-size: 27px;"><font color="8acaed">0851-86576095</font></div>
+						<div style="padding-top:18px;font-size: 27px;"><font color="8acaed">0531-86576095</font></div>
 					</div>
 				</div>
 				<div style="float: none;padding-top:35px;font-size: 22px;">
-					<font color="8acaed">邮箱：gzjkstyl@sina.com</font>
+					<font color="8acaed">邮箱：abcdefg@sina.com</font>
 				</div>
 			</div>
 			<div class="col-sm-4 footer1">
@@ -77,12 +77,12 @@
 			</div>
 			<div class="col-sm-4">
 				<div>
-					<div class="footer-title"><span>业务技术</span></div>
+					<div class="footer-title"><span>工程案例</span></div>
 					<div>
 						<ul class="footer-nav">
 							<c:forEach var="m" items="${menuList}" varStatus="s">
 								<c:choose>
-									<c:when test="${m.menu.menuname == '业务技术'}">
+									<c:when test="${m.menu.menuname == '工程案例'}">
 										<c:forEach var="sMenu" items="${m.subMenu}" varStatus="s">
 											<c:choose>
 												<c:when test="${sMenu.count > 1}">

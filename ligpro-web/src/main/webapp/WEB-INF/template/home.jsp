@@ -250,7 +250,7 @@
 											<h3>
 												<span
 													style="font-size: 20px; font-family: Microsoft YaHei, 微软雅黑, MicrosoftJhengHei, 华文细黑, STHeiti, MingLiu; font-weight: bold;"><i
-													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;最新动态</span> <span
+													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;防雷产品</span> <span
 													class="pull-right"><a href="<c:url value='/latest'/>">更多
 														<i class="fa fa-angle-double-right"></i>
 												</a></span>
@@ -296,7 +296,7 @@
 											<h3>
 												<span
 													style="font-size: 20px; font-family: Microsoft YaHei, 微软雅黑, MicrosoftJhengHei, 华文细黑, STHeiti, MingLiu; font-weight: bold;"><i
-													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;业务技术</span> <span
+													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;工程案例</span> <span
 													class="pull-right"><a href="<c:url value='/business'/>">更多
 														<i class="fa fa-angle-double-right"></i>
 												</a></span>
@@ -331,7 +331,7 @@
 											<h3>
 												<span
 													style="font-size: 20px; font-family: Microsoft YaHei, 微软雅黑, MicrosoftJhengHei, 华文细黑, STHeiti, MingLiu; font-weight: bold;"><i
-													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;科技研发中心</span> <span
+													class="fa fa-minus fa-rotate-90"></i>&nbsp;&nbsp;企业资讯</span> <span
 													class="pull-right"><a href="<c:url value='/institute'/>">更多
 														<i class="fa fa-angle-double-right"></i>
 												</a></span>

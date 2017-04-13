@@ -43,7 +43,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#"><img width="192px" height="55"
-						src="<c:url value='/html/images/logo/logo.png'/>" alt="logo"></a>
+						src="<c:url value='/html/images/logo/ligpro-logo.png'/>" alt="logo"></a>
 			</div>
 
 			<div class="collapse navbar-collapse navbar-left">
