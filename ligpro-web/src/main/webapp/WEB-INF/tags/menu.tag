@@ -19,7 +19,7 @@
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a,
 	.navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>li>a:hover
 	{
-	background-color: #421439;
+	background-color: #E40B0E;
 	color: #fff;
 	height: 60px;
 	padding-top: 17px;
@@ -32,7 +32,7 @@
 }
 /* 下拉菜单背景颜色 */
 .navbar-inverse .navbar-nav>.dropdown>.dropdown-menu>li>a:hover {
-	background-color: #960371;
+	background-color: #E40B0E;
 	color: #fff;
 }
 -->

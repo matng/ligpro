@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="menuid"><fmt:message key="menuid" /></label>
+								for="menuid">设备类别</label>
 							<div class="col-sm-10">
 								<div class="clearfix">									
 									<input type="text" id="menuName" name="menuName" value="${menuName}" class="col-xs-10 col-sm-5"/>
@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="space-4"></div>
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right" 
-							for="title"><fmt:message key="title" /></label>
+							for="title">名称</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 								<input type="text" id="title" name="title" class="col-xs-10 col-sm-5" />
@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="keyword"><fmt:message key="keyword" /></label>
+								for="keyword">参数备注</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 								<input type="text" id="keyword" name="keyword"
