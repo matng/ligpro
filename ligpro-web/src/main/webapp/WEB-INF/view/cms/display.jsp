@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="type"><fmt:message key="type" /></label>
+								for="type">是否置顶</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 									<select id="contentTypeSelect" class="selectpicker show-tick" data-size="5" data-style="btn btn-primary">
@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="space-4"></div>
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right" 
-							for="title">名称</label>
+							for="title">设备名称</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 								<input type="text" id="title" name="title" class="col-xs-10 col-sm-5" />
@@ -117,24 +117,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="keyword">参数备注</label>
+								for="keyword">参数信息</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
-								<input type="text" id="keyword" name="keyword"
-									class="col-xs-10 col-sm-5" />
-									</div>
+									<%--<input type="text" id="keyword" name="keyword"
+									class="col-xs-10 col-sm-5" />--%>
+									<textarea class="col-xs-10 col-sm-5" id="keyword" name="keyword" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right">上传图片
+							</label>
+							<div class="col-sm-10">
+								<div class="clearfix">
+									<input id="htmlurl" onclick="showUploadImgModal()" readonly name="htmlurl" type="text" class="col-xs-10 col-sm-5"/>
+								</div>
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="content"><fmt:message key="content" /></label>
+								for="content">详细内容</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 									<input type="text" id="content" name="content" class="hidden" />
 									<!-- <div class="wysiwyg-editor" id="editor1"></div> -->
 									<div>
-										<script id="container" name="content" style="width:900px;height:400px;" type="text/plain">这里写你的初始化内容</script>
+										<script id="container" name="content" style="width:90%;height:300px;" type="text/plain">这里写你的初始化内容</script>
 									</div>
 								</div>
 							</div>
@@ -143,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="space-4"></div>
 						<div class="form-group">
 							<label style="font-weight:bold" class="col-sm-2 control-label no-padding-right"
-								for="seqno"><fmt:message key="menu_seqno" /></label>
+								for="seqno">排列顺序</label>
 							<div class="col-sm-10">
 								<div class="clearfix">
 								<input type="text" id="seqno" name="seqno"
@@ -275,6 +286,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<!-- /.modal-dialog -->
 	</div>
 </div><!-- /.row -->
+
+	<!-- upload images -->
+	<div id="uoload-modal" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header no-padding">
+					<div class="table-header">
+						<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">
+							<span class="white">&times;</span>
+						</button>
+						<span id="modal-title">上传图片</span>
+					</div>
+				</div>
+
+				<div id="upload-modal-body" class="modal-body">
+					<form id="uploadFileId" name="uploadFileId" action=""  enctype="multipart/form-data">
+						<input type="file" id="file" name="file" />
+					</form>
+				</div>
+				<div class="modal-footer no-margin-top">
+					<button id="cancelUploadBtn" class="btn btn-sm" data-dismiss="modal">
+						<i class="ace-icon fa fa-times"></i> 取消
+					</button>
+					<button id="uploadBtn" onclick="upload()" class="btn btn-sm btn-primary">
+						<i class="ace-icon fa fa-check"></i> 确定
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <!-- page specific plugin scripts -->
 <script type="text/javascript">
@@ -798,13 +840,13 @@ $('.page-content-area').ace_ajax('loadScripts', scripts, function() {
 						  {"mDataProp": "id", "sClass":"center", "bSortable": false,"bSearchable": false, "mRender": chkRender },
 						  {"mDataProp": "title", "sClass":"center","bSortable": false,"bSearchable": false },
 						  {"mDataProp": "menuid", "sClass":"center","bSortable":false, "mRender": menuIdRender },
-						  {"mDataProp": "keyword", "sClass":"left","bSortable": true,"bSearchable": false },
-						  {"mDataProp": "content", "sClass":"left","bVisible": false, "bSortable": true,"bSearchable": false, "mRender": contentRender },
-						  {"mDataProp": "type", "sClass":"center","bSortable":true,"mRender": typeRender},
-						  {"mDataProp": "seqno", "sClass":"left","bSortable": true,"bSearchable": false },
-						  {"mDataProp": "addtime", "sClass":"left","bSortable": true,"bSearchable": false, "mRender": timeRender},							  
+						  {"mDataProp": "keyword", "sClass":"center","bSortable": false,"bSearchable": false },
+						  {"mDataProp": "content", "sClass":"center","bVisible": false, "bSortable": true,"bSearchable": false, "mRender": contentRender },
+						  {"mDataProp": "type", "sClass":"center","bSortable":false,"mRender": typeRender},
+						  {"mDataProp": "seqno", "sClass":"center","bSortable": false,"bSearchable": false },
+						  {"mDataProp": "addtime", "sClass":"center","bSortable": false,"bSearchable": false, "mRender": timeRender},
 						  {"mDataProp": "ischeck", "sClass":"center","bSortable": false,"bSearchable": false, "mRender": checkRender },
-						  {"mDataProp": "id", "sClass": "left","bSearchable": false,"bSortable": false,"mRender": opRender}
+						  {"mDataProp": "id", "sClass": "center","bSearchable": false,"bSortable": false,"mRender": opRender}
 						];
 		var callBackFunc = callAjaxFunc;		
 		//初始化 datatable
@@ -1243,4 +1285,31 @@ $('.page-content-area').ace_ajax('loadScripts', treeScripts, function() {
 		});
 			
 	});
+
+
+
+	//弹出上传窗口
+	function showUploadImgModal(){
+		$('#uoload-modal').modal('show');
+	}
+
+	//上传图片
+	function upload(){
+		var form = new FormData(document.getElementById("uploadFileId"));
+		$.ajax({
+			url:"<c:url value='/cms/upload'/>",
+			type:"post",
+			data:form,
+			processData:false,
+			contentType:false,
+			success:function(data){
+				$('#htmlurl').val(data);
+				console.log("result is :"+data)
+				$('#uoload-modal').modal('hide');
+			},
+			error:function(e){
+				errMsgBox("上传失败");
+			}
+		});
+	}
 </script>

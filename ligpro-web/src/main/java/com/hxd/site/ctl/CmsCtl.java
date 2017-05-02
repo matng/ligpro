@@ -1,20 +1,22 @@
 package com.hxd.site.ctl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hxd.util.ConfigUtil;
+import com.hxd.util.DateUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.hxd.bean.Content;
@@ -28,6 +30,7 @@ import com.hxd.util.StrUtil;
 import com.hxd.vo.ContentVo;
 import com.hxd.vo.PageData;
 import com.hxd.vo.StatusVo;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/cms")
@@ -42,6 +45,9 @@ public class CmsCtl extends BaseCtl {
 	
 	@Autowired
 	private TemplateService tService;
+
+	private static String baseFileUploadDir = ConfigUtil.get("baseFileUploadDir");
+	private static String separator = ConfigUtil.get("sysSeparator");
 	
 	@ControllerLog(cleanData="false",desc="log.cms.company.read")
 	@RequiresPermissions("cms:company:r")
@@ -269,5 +275,27 @@ public class CmsCtl extends BaseCtl {
 		}
 		log.debug("###@@@ status:"+StrUtil.toJsonStrWithFixed(sta));
 		return StrUtil.toJsonStrWithFixed(sta);
+	}
+
+	@RequestMapping(value="/upload")
+	@ResponseBody
+	public String upload(@RequestParam("file") MultipartFile myfile){
+
+		String cYear = DateUtil.getCurYear();
+		String cMonth = DateUtil.getCurMM();
+		String cDay = DateUtil.getCurDD();
+		String cTime = DateUtil.getCurHHmmssSSS();
+		String dbPath = cYear + separator + cMonth + separator + cDay + separator + cTime;
+		String path =  baseFileUploadDir + separator + dbPath;
+		String dbUrl = dbPath + separator + myfile.getOriginalFilename();
+
+		try {
+			FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(path, myfile.getOriginalFilename()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			log.error(e);
+			e.printStackTrace();
+		}
+		return dbUrl;
 	}
 }

@@ -139,6 +139,12 @@ function fnInitDataTables(tableId, ajaxUrl, colJsonDef, func) {
 						"bPaginate" : true,
 						"bFilter" : true,
 						"bSort" : true,
+                        "aoColumnDefs": [
+                            {
+                                sDefaultContent: '',
+                                aTargets: [ '_all' ]
+                            }
+                        ],
 						"aaSorting" : [],
 						"bSortClasses" : false,
 						//"bStateSave": true,		
